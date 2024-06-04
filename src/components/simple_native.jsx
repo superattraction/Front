@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from 'axios';
 
 export default function List() {
 
@@ -51,10 +50,10 @@ export default function List() {
 
 
   return (
-    
-    <div className="flex justify-center items-center flex-col">
-      <h1 className="flex justify-center items-center flex-col">직무 검색표</h1>
-      <div>
+    <div className="flex flex-col items-center justify-center">
+    <h1 className="text-2xl font-extrabold m-10">직무 검색표</h1>
+    <div className="flex justify-between items-center m-3 p-5">      
+      <div className="text-lg">
         <label>
           직무 대분류
           <select value={selectedLarge} onChange={handleLargeChange}>
@@ -62,15 +61,16 @@ export default function List() {
             {largeCategories.map((large, index) => (
               <option key={index} value={large}>
                 {large}
-              </option>
+            </option>
             ))}
           </select>
         </label>
       </div>
 
-      {mediumCategories.length > 0 && (
-        <div>
-          <label>
+      {/* {mediumCategories.length > 0 && ( */}
+        
+    <div className="text-lg">
+      <label>
             직무 중분류
             <select value={selectedMedium} onChange={handleMediumChange}>
               <option value="" disabled>선택하세요.</option>
@@ -82,10 +82,10 @@ export default function List() {
             </select>
           </label>
         </div>
-      )}
+      {/* )} */}
 
-      {smallCategories.length > 0 && (
-        <div>
+      {/* {smallCategories.length > 0 && ( */}
+        <div className="text-lg">
           <label>
             직무 소분류
             <select value={selectedSmall} onChange={handleSmallChange}>
@@ -98,9 +98,9 @@ export default function List() {
             </select>
           </label>
         </div>
-      )}
+      {/* )} */}
     </div>
-      
+    </div>
   )
 }
 

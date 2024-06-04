@@ -1,16 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import First_Page from "./components/simple_centered_on_dark";
-import List from "./components/simple_native";
+import Main from "./pages/Main";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<First_Page />} />
-      </Routes>
-      <Routes>
-        <Route path="/" element={<List />} />
+        <Route path="/" element={<Main/>}>
+        </Route>
       </Routes>
     </Router>
   );
