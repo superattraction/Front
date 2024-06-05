@@ -1,4 +1,4 @@
-export default function First_Page() {
+export default function Header() {
   return (
     <div className="relative isolate overflow-hidden bg-gray-900">
       <div className="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">

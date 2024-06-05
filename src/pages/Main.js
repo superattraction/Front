@@ -1,14 +1,18 @@
 import React from 'react'
-import First_Page from '../components/simple_centered_on_dark'
-import List from '../components/simple_native'
+import Header from '../components/Header'
+import CategoriesList from '../components/CategoriesList'
 import KakaoMap from '../components/KakaoMap'
+import SideCardList from '../components/SideCardList'
 
 export default function Main() {
   return (
     <div>
-      <First_Page />
-      <List />
+      <Header />
+      <CategoriesList />
       <div className='flex justify-center'>
+        <div className='px-6 py-4'>
+          <SideCardList />
+        </div>
         <KakaoMap />
       </div>
     </div>
