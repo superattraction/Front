@@ -1,122 +1,18 @@
 import { useState } from 'react'
-import { Dialog, Disclosure } from '@headlessui/react'
-import { Bars3Icon, MinusSmallIcon, PlusSmallIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import {
-  ArrowPathIcon,
-  CheckIcon,
-  CloudArrowUpIcon,
-  Cog6ToothIcon,
-  FingerPrintIcon,
-  LockClosedIcon,
-  ServerIcon,
-} from '@heroicons/react/20/solid'
+import { Dialog } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+
 import Logo from '../img/star 1.png'
+import PatrickStar from '../img/Patrick Star.jpg'
 
 const navigation = [
-  { name: 'Product', href: '#' },
+  { name: '직무능력계좌', href: '#' },
   { name: 'Features', href: '#' },
   { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
+  { name: '마이페이지', href: '#' },
 ]
-const features = [
-  {
-    name: 'Push to deploy.',
-    description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna.',
-    icon: CloudArrowUpIcon,
-  },
-  {
-    name: 'SSL certificates.',
-    description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
-    icon: LockClosedIcon,
-  },
-  {
-    name: 'Simple queues.',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus.',
-    icon: ArrowPathIcon,
-  },
-  {
-    name: 'Advanced security.',
-    description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit aute id magna.',
-    icon: FingerPrintIcon,
-  },
-  {
-    name: 'Powerful API.',
-    description: 'Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.',
-    icon: Cog6ToothIcon,
-  },
-  {
-    name: 'Database backups.',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. ',
-    icon: ServerIcon,
-  },
-]
-const tiers = [
-  {
-    name: 'Hobby',
-    id: 'tier-hobby',
-    href: '#',
-    priceMonthly: '$19',
-    description: "The perfect plan if you're just getting started with our product.",
-    features: ['25 products', 'Up to 10,000 subscribers', 'Advanced analytics', '24-hour support response time'],
-    featured: false,
-  },
-  {
-    name: 'Enterprise',
-    id: 'tier-enterprise',
-    href: '#',
-    priceMonthly: '$49',
-    description: 'Dedicated support and infrastructure for your company.',
-    features: [
-      'Unlimited products',
-      'Unlimited subscribers',
-      'Advanced analytics',
-      'Dedicated support representative',
-      'Marketing automations',
-      'Custom integrations',
-    ],
-    featured: true,
-  },
-]
-const faqs = [
-  {
-    question: "What's the best thing about Switzerland?",
-    answer:
-      "I don't know, but the flag is a big plus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cupiditate laboriosam fugiat.",
-  },
-  // More questions...
-]
-const footerNavigation = {
-  solutions: [
-    { name: 'Marketing', href: '#' },
-    { name: 'Analytics', href: '#' },
-    { name: 'Commerce', href: '#' },
-    { name: 'Insights', href: '#' },
-  ],
-  support: [
-    { name: 'Pricing', href: '#' },
-    { name: 'Documentation', href: '#' },
-    { name: 'Guides', href: '#' },
-    { name: 'API Status', href: '#' },
-  ],
-  company: [
-    { name: 'About', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'Jobs', href: '#' },
-    { name: 'Press', href: '#' },
-    { name: 'Partners', href: '#' },
-  ],
-  legal: [
-    { name: 'Claim', href: '#' },
-    { name: 'Privacy', href: '#' },
-    { name: 'Terms', href: '#' },
-  ],
-}
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-export default function Example() {
+export default function MainPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -151,9 +47,15 @@ export default function Example() {
               </a>
             ))}
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm font-semibold leading-6 text-white">
-              Log in <span aria-hidden="true">&rarr;</span>
+          <div className="hidden lg:flex flex-1 justify-end ">
+            <a href="/signup" className="px-5 text-sm font-semibold leading-6 text-white">
+              회원가입
+            </a>
+            <a href="/signin" className="text-sm font-semibold leading-6 text-white">
+              Login
+            </a>
+            <a href="/admin" className="px-5 text-sm font-semibold leading-6 text-white">
+              Admin
             </a>
           </div>
         </nav>
@@ -178,9 +80,23 @@ export default function Example() {
                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
+            <div className="py-6 ">
+                  <a
+                    href="/signup"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    회원가입
+                  </a>
+                  <a
+                    href="/signin"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Login
+                  </a>
+                </div>
+            <div className="flow-root">
+              <div className="divide-y divide-gray-500/10">
+                <div className="space-y-2">
                   {navigation.map((item) => (
                     <a
                       key={item.name}
@@ -193,10 +109,10 @@ export default function Example() {
                 </div>
                 <div className="py-6">
                   <a
-                    href="#"
+                    href="/admin"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Log in
+                    Admin
                   </a>
                 </div>
               </div>
@@ -209,9 +125,9 @@ export default function Example() {
         {/* Hero section */}
         <div className="relative isolate overflow-hidden bg-gray-900 pb-16 pt-14 sm:pb-20">
           <img
-            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
+            src={PatrickStar}
             alt=""
-            className="absolute inset-0 -z-10 h-full w-full object-cover"
+            className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
           />
           <div
             className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"

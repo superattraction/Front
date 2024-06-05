@@ -50,10 +50,10 @@ export default function DistributionLit() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-gray-100 py-10">
-      <h1 className="text-3xl font-extrabold mb-10">직무 검색표</h1>
-      <div className="flex flex-col">
+    <div className="flex flex-col items-center justify-center py-10">
+      <div className="flex flex-col ">
       <div className="bg-white shadow-md rounded-lg p-8">
+      <h1 className="flex items-center justify-center text-3xl font-extrabold mb-10 ">직무 검색</h1>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div className="text-lg">
             <label className="block mb-2 font-medium text-gray-700">
@@ -63,7 +63,7 @@ export default function DistributionLit() {
                 value={selectedLarge}
                 onChange={handleLargeChange}
               >
-                <option value="" disabled>선택하세요.</option>
+                <option value="" disabled>대분류</option>
                 {largeCategories.map((large, index) => (
                   <option key={index} value={large}>
                     {large}
@@ -81,7 +81,7 @@ export default function DistributionLit() {
                 value={selectedMedium}
                 onChange={handleMediumChange}
               >
-                <option value="" disabled>선택하세요.</option>
+                <option value="" disabled>중분류</option>
                 {mediumCategories.map((medium, index) => (
                   <option key={index} value={medium}>
                     {medium}
@@ -99,7 +99,7 @@ export default function DistributionLit() {
                 value={selectedSmall}
                 onChange={handleSmallChange}
               >
-                <option value="" disabled>선택하세요.</option>
+                <option value="" disabled>소분류</option>
                 {smallCategories.map((small, index) => (
                   <option key={index} value={small}>
                     {small}
