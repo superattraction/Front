@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import SearchButton from "./SearchButton";
 
 export default function DistributionLit() {
 
@@ -51,6 +52,7 @@ export default function DistributionLit() {
   return (
     <div className="flex flex-col items-center justify-center bg-gray-100 py-10">
       <h1 className="text-3xl font-extrabold mb-10">직무 검색표</h1>
+      <div className="flex flex-col">
       <div className="bg-white shadow-md rounded-lg p-8">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <div className="text-lg">
@@ -107,6 +109,8 @@ export default function DistributionLit() {
             </label>
           </div>
         </div>
+      </div>
+          <SearchButton />
       </div>
     </div>
   );
