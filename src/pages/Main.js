@@ -9,7 +9,7 @@ export default function Main() {
     <div>
       <MainPage />
       <CategoriesList />
-      <div className='flex justify-center border-t-2 border-purple-200'>
+      <div className='flex justify-center'>
         <div className='px-6 py-4'>
           <SideCardList />
         </div>

@@ -15,7 +15,6 @@ export default function DistributionLit() {
       fetch('http://10.125.121.212:8080/ncsall')
       .then(resp => resp.json())
       .then(data => setData(data))
-               
   }, []);
 
   useEffect(() => {
@@ -44,11 +43,35 @@ export default function DistributionLit() {
     setSmallCategories([...new Set(filteredSmalls)]);
   };
 
+  
   const handleSmallChange = (e) => {
     const selected = e.target.value;
     setSelectedSmall(selected);
   };
 
+  const handleSearch = () => {
+    const selectedId = {
+      large: selectedLarge,
+      medium: selectedMedium,
+      small: selectedSmall,
+  };
+    
+    // fetch('http://10.125.121.212:8080/search', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(selectedId),
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log('전송 성공', data); 
+    // })
+    // .catch((error) => {
+    //   console.error('Error', error);
+    // });
+  };
+    
   return (
     <div className="flex flex-col items-center justify-center py-10">
       <div className="flex flex-col ">
@@ -110,7 +133,10 @@ export default function DistributionLit() {
           </div>
         </div>
       </div>
+      <div className="flex item-center justify-center">
+          {/* <SearchButton onClick={handleSearch} /> */}
           <SearchButton />
+      </div>
       </div>
     </div>
   );
