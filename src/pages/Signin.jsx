@@ -1,4 +1,4 @@
-import Logo from '../img/star 1.png'
+import Logo from './img/star 1.png'
 
 export default function Signin() {
   return (

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import SearchButton from "./SearchButton";
 
-export default function DistributionLit() {
+export default function DistributionLit({setEdus}) {
 
   const [data2, setData] = useState([]);
   const [largeCategories, setLargeCategories] = useState([]);
@@ -10,6 +9,7 @@ export default function DistributionLit() {
   const [selectedMedium, setSelectedMedium] = useState('');
   const [selectedSmall, setSelectedSmall] = useState('');
   const [smallCategories, setSmallCategories] = useState([]);
+
 
   useEffect(() => {
       fetch('http://10.125.121.212:8080/ncsall')
@@ -26,6 +26,13 @@ export default function DistributionLit() {
     console.log(data2)
   } , [data2]);
 
+  const eduClick = () => {
+    // if 문으로 two, four, six 로 나눠서 스트링 처리하기
+    let url = "http://10.125.121.212:8080/ncscodes/two/"+"12"
+    fetch(url)
+      .then(resp => resp.json())
+      .then(data => setEdus(data))
+  }
   const handleLargeChange = (e) => {
     const selected = e.target.value;
     setSelectedLarge(selected);
@@ -49,28 +56,7 @@ export default function DistributionLit() {
     setSelectedSmall(selected);
   };
 
-  const handleSearch = () => {
-    const selectedId = {
-      large: selectedLarge,
-      medium: selectedMedium,
-      small: selectedSmall,
-  };
-    
-    // fetch('http://10.125.121.212:8080/search', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(selectedId),
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //   console.log('전송 성공', data); 
-    // })
-    // .catch((error) => {
-    //   console.error('Error', error);
-    // });
-  };
+
     
   return (
     <div className="flex flex-col items-center justify-center py-10">
@@ -134,8 +120,12 @@ export default function DistributionLit() {
         </div>
       </div>
       <div className="flex item-center justify-center">
-          {/* <SearchButton onClick={handleSearch} /> */}
-          <SearchButton />
+      <button
+        className="rounded-md bg-indigo-100 px-10 py-2.5 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-200 mt-5"
+        onClick={eduClick}
+      >
+        검색
+      </button>      
       </div>
       </div>
     </div>
