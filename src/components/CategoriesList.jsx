@@ -10,7 +10,6 @@ export default function DistributionLit({setEdus}) {
   const [selectedSmall, setSelectedSmall] = useState('');
   const [smallCategories, setSmallCategories] = useState([]);
 
-
   useEffect(() => {
       fetch('http://10.125.121.212:8080/ncsall')
       .then(resp => resp.json())

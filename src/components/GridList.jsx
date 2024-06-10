@@ -3,11 +3,11 @@ import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/20/solid";
 
 export default function GridList({ edus }) {
   return (
-    <ul role="list" className="grid">
+    <ul role="list" className="grid gap-y-3">
       {edus.map((education) => (
         <li
           key={education.ncsCode}
-          className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
+          className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow "
         >
           <div className="flex w-full items-center justify-between space-x-6 p-6">
             <div className="flex-1 truncate">

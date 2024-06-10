@@ -4,13 +4,12 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import Logo from "../img/star 1.png";
 import PatrickStar from "../img/Patrick Star.jpg";
-import CategoriesList from "./CategoriesList";
 
 const navigation = [
   { name: "직무능력계좌", href: "#" },
   { name: "Features", href: "#" },
   { name: "Marketplace", href: "#" },
-  { name: "마이페이지", href: "#" },
+  { name: "마이페이지", href: "/MyPage" },
 ];
 const MainPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Define the state variables
@@ -157,7 +156,7 @@ const MainPage = () => {
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="hidden sm:mb-8 sm:flex sm:justify-center font-bold">
               <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
-                국비교육의 모든 것을 알고 싶다면{" "}
+                씹덕들의 모든 것을 알고 싶다면{" "}
                 <a href="#" className="font-semibold text-white px-3">
                   <span className="absolute inset-0" aria-hidden="true" />
                   Read more <span aria-hidden="true">&rarr;</span>
@@ -166,17 +165,18 @@ const MainPage = () => {
             </div>
             <div className="text-center">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                국비 나침반
+                던전에서 만남을 추구하면 안되는걸까?
               </h1>
               <p className="mt-6 text-2xl leading-8 text-gray-300">
-                Super 이끌림이 당신의 꿈을 응원합니다.
+                파오후들이 당신의 꿈을 응원합니다.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a
                   href="#"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
-                  NCS기반 직무분석
+                  {/* NCS기반 직무분석 */}
+                  링크 스타트!
                 </a>
                 <a
                   href="#"
