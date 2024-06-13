@@ -1,7 +1,6 @@
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/20/solid";
 
-
-export default function GridList({ edus }) {
+export default function GridList({ edus, onAddressClick }) {
   return (
     <ul role="list" className="grid gap-y-3">
       {edus.map((education) => (
@@ -16,28 +15,16 @@ export default function GridList({ edus }) {
                   {education.title}
                 </h3>
               </div>
-              <p className="mt-1 truncate text-sm text-gray-500">
-                {education.edu_info.address_info}
+              <p className="mt-1 truncate text-sm text-gray-500 ">
+                {education.address}
               </p>
             </div>
           </div>
           <div>
             <div className="-mt-px flex divide-x divide-gray-200">
-              <div className="flex w-0 flex-1">
-                <a
-                  href={`mailto:${education.edu_info.school_CON}`}
-                  className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
-                >
-                  <EnvelopeIcon
-                    className="h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  E-mail
-                </a>
-              </div>
               <div className="-ml-px flex w-0 flex-1">
                 <a
-                  href={`tel:${education.edu_info.school_EMAIL}`}
+                  href={`tel:${education.phone}`}
                   className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
                 >
                   <PhoneIcon

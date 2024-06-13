@@ -3,10 +3,10 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import Logo from "../img/star 1.png";
-import PatrickStar from "../img/Patrick Star.jpg";
+import PatrickStar from "../img/IMG_4619.jpg";
 
 const navigation = [
-  { name: "직무능력계좌", href: "#" },
+  { name: "직무능력계좌", href: "/Account" },
   { name: "Features", href: "#" },
   { name: "Marketplace", href: "#" },
   { name: "마이페이지", href: "/MyPage" },
@@ -138,7 +138,7 @@ const MainPage = () => {
         <img
           src={PatrickStar}
           alt=""
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-80"
         />
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -156,7 +156,7 @@ const MainPage = () => {
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="hidden sm:mb-8 sm:flex sm:justify-center font-bold">
               <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
-                씹덕들의 모든 것을 알고 싶다면{" "}
+                국비지원의 모든 것을 알고 싶다면{" "}
                 <a href="#" className="font-semibold text-white px-3">
                   <span className="absolute inset-0" aria-hidden="true" />
                   Read more <span aria-hidden="true">&rarr;</span>
@@ -165,18 +165,17 @@ const MainPage = () => {
             </div>
             <div className="text-center">
               <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-                던전에서 만남을 추구하면 안되는걸까?
+                국비 나침반
               </h1>
               <p className="mt-6 text-2xl leading-8 text-gray-300">
-                파오후들이 당신의 꿈을 응원합니다.
+                Super 이끌림이 당신의 꿈을 응원합니다.
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a
                   href="#"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
                 >
-                  {/* NCS기반 직무분석 */}
-                  링크 스타트!
+                  NCS기반 직무분석
                 </a>
                 <a
                   href="#"

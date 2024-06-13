@@ -3,9 +3,10 @@ import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
 import { BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../img/star 1.png";
+import MainPage from "../../components/MainPage";
 
 const navigation = [
-  { name: "Home", href: "#" },
+  { name: "Home", href: "/" },
   { name: "강좌 리스트", href: "#" },
   { name: "강좌 분석", href: "#" },
   { name: "관리자 관리", href: "#" },
@@ -74,7 +75,7 @@ export default function AdminPage() {
               <span className="sr-only">Open main menu</span>
               <Bars3Icon className="h-5 w-5 text-gray-900" aria-hidden="true" />
             </button>
-            <img className="h-12 w-auto" src={Logo} />
+            <img className="h-12 w-auto" src={Logo}/>
           </div>
           <nav className="hidden md:flex md:gap-x-11 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
             {navigation.map((item, itemIdx) => (
@@ -148,22 +149,23 @@ export default function AdminPage() {
         <div className="relative isolate overflow-hidden pt-16">
           {/* Secondary navigation */}
           <header className="pb-4 pt-6 sm:pb-6">
-            <div className="pb-10">
+            <div>
+
               <label
                 htmlFor="search"
-                className="text-sm flex items-center justify-center font-medium leading-6 text-gray-900 pb-3"
-              >
+                className="text-sm flex items-center justify-center font-medium leading-6 text-gray-900 pb-2"
+                >
                 감독을 원하는 강좌를 검색하세요.
               </label>
-              <div className="relative mt-2 flex items-center">
+              <div className="relative mt-2 flex items-center justify-center pb-10">
                 <input
                   type="text"
                   name="search"
                   id="search"
-                  className="block w-full rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 w-1/3"
                 />
-                <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-                  <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
+                <div className="inset-y-0 right-0 flex">
+                  <kbd className="inline-flex items-center rounded border border-gray-200 p-2 font-sans text-xs text-gray-400 ml-3">
                     검색
                   </kbd>
                 </div>
