@@ -25,7 +25,7 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
 
   const fetchSortedData = async (sortCriteria, part) => {
     if (!part) {
-      console.error('NCS code is missing');
+      console.error('NCS코드가 존재하지 않습니다.');
       return;
     }
 
