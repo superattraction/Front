@@ -35,10 +35,10 @@ export default function Main() {
       <CategoriesList setEdus={setEdus} setPart={setPart} />
       <div className="flex justify-center mb-10 h-screen">
         <div className="w-full max-w-7xl px-6 py-4 flex h-full">
-          <div className="w-1/2 h-full overflow-y-auto">
+          <div className="w-full h-full overflow-y-auto">
             <SideCardList edus={edus} part={part} onSelectAddress={setSelectedAddress} />
           </div>
-          <div className="w-1/2 h-full">
+          <div className="w-1/2 h-full ml-5">
             <MyMap address={selectedAddress} />
           </div>
         </div>

@@ -14,7 +14,7 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
         });
       },
       (error) => {
-        console.error(error);
+        console.error("Error fetching current position:", error);
       }
     );
   }, []);
@@ -33,16 +33,15 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
     switch (sortCriteria) {
       case 'related':
         url = `http://10.125.121.212:8080/ncscodes/six/pssort/${part}`;
-        console.log(part)
-        console.log(url)
         break;
       case 'custom':
         url = `http://10.125.121.212:8080/ncscodes/six/ratingsort/${part}`;
-        console.log(url)
         break;
       default:
         return;
     }
+
+    console.log('Fetching URL:', url);
 
     try {
       const response = await fetch(url);
@@ -75,7 +74,7 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
       return R * c;
     };
 
-    const sorted = [...edus].sort((a, b) => {
+    const sorted = [...sortedEdus].sort((a, b) => {
       const distanceA = haversineDistance(
         currentPosition.lat,
         currentPosition.lng,
