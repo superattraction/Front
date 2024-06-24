@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function CategoriesList({ setEdus }) {
+export default function CategoriesList({ setEdus, setPart }) {
   const [data2, setData] = useState([]);
   const [largeCategories, setLargeCategories] = useState([]);
   const [selectedLarge, setSelectedLarge] = useState("");
@@ -12,53 +12,48 @@ export default function CategoriesList({ setEdus }) {
   useEffect(() => {
     fetch("http://10.125.121.212:8080/ncsall")
       .then((resp) => resp.json())
-      .then((data) => setData(data));
+      .then((data) => setData(data))
+      .catch((error) => console.error('Error fetching data:', error));
+  }, []);
 
-      }, []);
-      
   useEffect(() => {
-    if (data2.length > 0) {
-      let tm = data2.map(item => item.large);
+    if (data2 && data2.length > 0) {
+      let tm = data2.map((item) => item.large);
       tm = new Set(tm);
       tm = [...tm];
       setLargeCategories(tm);
     }
   }, [data2]);
-  
+
   const eduClick = () => {
     let url = "";
-    if (selectedLarge && !selectedMedium && !selectedSmall) {
-      const large = selectedLarge.substring(0,2)
-      url = 'http://10.125.121.212:8080/ncscodes/two/'+large;
-    } else if (selectedLarge && selectedMedium && !selectedSmall) {
-      const large = selectedLarge.substring(0,2)
-      const medium = selectedMedium.substring(0,2)
-      // const encodedMedium = encodeURIComponent(selectedMedium);
-      url = 'http://10.125.121.212:8080/ncscodes/four/'+large+medium;
-    } else if (selectedLarge && selectedMedium && selectedSmall) {
-      // const encodedSmall = encodeURIComponent(selectedSmall);
-      const large = selectedLarge.substring(0,2)
-      const medium = selectedMedium.substring(0,2)
-      const small = selectedSmall.substring(0,2)
-      url = 'http://10.125.121.212:8080/ncscodes/six/'+large+medium+small;
-      console.log(url)
+    if (selectedLarge && selectedMedium && selectedSmall) {
+      const large = selectedLarge.substring(0, 2);
+      const medium = selectedMedium.substring(0, 2);
+      const small = selectedSmall.substring(0, 2);
+      const part = `${large}${medium}${small}`; // Ncscodes 생성
+      setPart(part); // Ncscodes를 Main 컴포넌트로 전달
+      url = `http://10.125.121.212:8080/ncscodes/six/${part}`;
+      console.log(url);
     } else {
       console.log("잘못된 처리 for eduClick");
       return;
     }
-
     fetch(url)
-    .then((resp) => resp.json())
-    .then((data) => setEdus(data));
-  }
-  
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log("Fetched data:", data); // 데이터가 올바르게 받아지는지 확인
+        setEdus(data);
+      })
+      .catch((error) => console.error('Error fetching data:', error));
+  };
+
   const handleLargeChange = (e) => {
     const selected = e.target.value;
     setSelectedLarge(selected);
     const filteredMediums = data2
       .filter((item) => item.large === selected)
       .map((item) => item.mid);
-    console.log(filteredMediums);
     setMediumCategories([...new Set(filteredMediums)]);
     setSelectedMedium("");
     setSmallCategories([]);
@@ -80,9 +75,9 @@ export default function CategoriesList({ setEdus }) {
 
   return (
     <div className="flex flex-col items-center justify-center py-10">
-      <div className="flex flex-col ">
+      <div className="flex flex-col">
         <div className="bg-white shadow-md rounded-lg p-8">
-          <h1 className="flex items-center justify-center text-3xl font-extrabold mb-10 ">
+          <h1 className="flex items-center justify-center text-3xl font-extrabold mb-10">
             직무 검색
           </h1>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -97,8 +92,8 @@ export default function CategoriesList({ setEdus }) {
                   <option value="" disabled>
                     대분류
                   </option>
-                  {largeCategories.map((large, ncsCode) => (
-                    <option key={ncsCode} value={large}>
+                  {largeCategories.map((large, id) => (
+                    <option key={id} value={large}>
                       {large}
                     </option>
                   ))}
@@ -117,8 +112,8 @@ export default function CategoriesList({ setEdus }) {
                   <option value="" disabled>
                     중분류
                   </option>
-                  {mediumCategories.map((medium, ncsCode) => (
-                    <option key={ncsCode} value={medium}>
+                  {mediumCategories.map((medium, id) => (
+                    <option key={id} value={medium}>
                       {medium}
                     </option>
                   ))}
@@ -137,8 +132,8 @@ export default function CategoriesList({ setEdus }) {
                   <option value="" disabled>
                     소분류
                   </option>
-                  {smallCategories.map((small, ncsCode) => (
-                    <option key={ncsCode} value={small}>
+                  {smallCategories.map((small, id) => (
+                    <option key={id} value={small}>
                       {small}
                     </option>
                   ))}

@@ -1,15 +1,112 @@
-import GridList from './GridList'
+import React, { useEffect, useState } from 'react';
+import GridList from './GridList';
 
-export default function SideCardList({edus}) {
+export default function SideCardList({ edus, part, onSelectAddress }) {
+  const [sortedEdus, setSortedEdus] = useState([]);
+  const [currentPosition, setCurrentPosition] = useState(null);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setCurrentPosition({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    setSortedEdus(edus); // 처음 로드될 때 edus를 sortedEdus로 설정
+  }, [edus]);
+
+  const fetchSortedData = async (sortCriteria, part) => {
+    if (!part) {
+      console.error('NCS code is missing');
+      return;
+    }
+
+    let url;
+    switch (sortCriteria) {
+      case 'related':
+        url = `http://10.125.121.212:8080/ncscodes/six/pssort/${part}`;
+        console.log(part)
+        console.log(url)
+        break;
+      case 'custom':
+        url = `http://10.125.121.212:8080/ncscodes/six/ratingsort/${part}`;
+        console.log(url)
+        break;
+      default:
+        return;
+    }
+
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Fetched data:', data);
+      setSortedEdus(data);
+    } catch (error) {
+      console.error('Fetching data failed:', error);
+    }
+  };
+
+  const sortByDistance = () => {
+    if (!currentPosition) return;
+
+    const haversineDistance = (lat1, lon1, lat2, lon2) => {
+      const toRad = (x) => (x * Math.PI) / 180;
+      const R = 6371; // km
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) *
+          Math.cos(toRad(lat2)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    };
+
+    const sorted = [...edus].sort((a, b) => {
+      const distanceA = haversineDistance(
+        currentPosition.lat,
+        currentPosition.lng,
+        a.latitude,
+        a.longitude
+      );
+      const distanceB = haversineDistance(
+        currentPosition.lat,
+        currentPosition.lng,
+        b.latitude,
+        b.longitude
+      );
+      return distanceA - distanceB;
+    });
+    setSortedEdus(sorted);
+  };
+
   return (
-    <div className="rounded-md border border-gray-300 bg-white">
-      <ul role="list" className="divide-y divide-gray-30 overflow-auto h-96">
-        {edus.map((item) => (
-          <li key={item.id1} className="px-6 py-4">
-            <GridList edus={edus}/>
-          </li>
-        ))}
-      </ul>
+    <div className="w-full h-full overflow-y-auto p-2 border-gray-300">
+      <div className="flex justify-between mb-4">
+        <button onClick={() => sortByDistance()} className="px-4 py-2 bg-blue-500 text-white rounded">
+          거리순
+        </button>
+        <button onClick={() => fetchSortedData('related', part)} className="px-4 py-2 bg-green-500 text-white rounded">
+          관련도순
+        </button>
+        <button onClick={() => fetchSortedData('custom', part)} className="px-4 py-2 bg-red-500 text-white rounded">
+          맞춤도순
+        </button>
+      </div>
+      <GridList edus={sortedEdus} onSelectAddress={onSelectAddress} />
     </div>
-  )
+  );
 }

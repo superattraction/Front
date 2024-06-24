@@ -1,6 +1,49 @@
-import Logo from './img/star 1.png'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Logo from '../img/star 1.png';
 
 export default function Signin() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.email) newErrors.email = "E-Mail을 올바르게 입력해주세요.";
+    if (!formData.password)
+      newErrors.password = "패스워드를 올바르게 입력해주세요.";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    axios
+      .post("http://10.125.121.212:8080/api/auth/signin", formData)
+      .then((response) => {
+        console.log("데이터가 성공적으로 전송되었습니다.", response.data);
+        // 성공 시 리디렉션
+        navigate('/dashboard');
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -8,15 +51,13 @@ export default function Signin() {
           <img
             className="mx-auto w-auto"
             src={Logo}
+            alt="Logo"
           />
           <h2 className="mt-6 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">
             로그인
           </h2>
-        </div>
-
-        <div className="mt-3 sm:mx-auto sm:w-full sm:max-w-[480px]">
-          <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-            <form className="space-y-6" action="#" method="POST">
+          <form onSubmit={handleSubmit} className="space-y-6 mt-8">
+            <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   E-mail
@@ -26,14 +67,17 @@ export default function Signin() {
                     id="email"
                     name="email"
                     type="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     autoComplete="email"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
+                  {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
                 </div>
               </div>
 
-              <div>
+              <div className="mt-4">
                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                   Password
                 </label>
@@ -42,14 +86,17 @@ export default function Signin() {
                     id="password"
                     name="password"
                     type="password"
+                    value={formData.password}
+                    onChange={handleChange}
                     autoComplete="current-password"
                     required
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
+                  {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password}</p>}
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mt-4">
                 <div className="flex items-center">
                   <input
                     id="remember-me"
@@ -69,7 +116,7 @@ export default function Signin() {
                 </div>
               </div>
 
-              <div>
+              <div className="mt-6">
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -77,15 +124,14 @@ export default function Signin() {
                   Sign in
                 </button>
               </div>
-            </form>
 
-            <div>
               <div className="relative mt-10">
                 <div className="absolute inset-0 flex items-center" aria-hidden="true">
                   <div className="w-full border-t border-gray-200" />
                 </div>
                 <div className="relative flex justify-center text-sm font-medium leading-6">
                   <span className="bg-white px-6 text-gray-900">
+                    또는
                   </span>
                 </div>
               </div>
@@ -117,9 +163,9 @@ export default function Signin() {
                 </a>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </>
-  )
+  );
 }

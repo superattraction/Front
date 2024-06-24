@@ -3,7 +3,6 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import Logo from "../img/star 1.png";
-import PatrickStar from "../img/IMG_4619.jpg";
 
 const navigation = [
   { name: "직무능력계좌", href: "/Account" },
@@ -135,11 +134,6 @@ const MainPage = () => {
 
       {/* Hero section */}
       <div className="relative isolate overflow-hidden bg-gray-900 pb-16 pt-14 sm:pb-20">
-        <img
-          src={PatrickStar}
-          alt=""
-          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-80"
-        />
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
@@ -170,20 +164,6 @@ const MainPage = () => {
               <p className="mt-6 text-2xl leading-8 text-gray-300">
                 Super 이끌림이 당신의 꿈을 응원합니다.
               </p>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a
-                  href="#"
-                  className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-                >
-                  NCS기반 직무분석
-                </a>
-                <a
-                  href="#"
-                  className="text-md font-semibold leading-6 text-white"
-                >
-                  더 보기 <span aria-hidden="true">→</span>
-                </a>
-              </div>
             </div>
           </div>
         </div>

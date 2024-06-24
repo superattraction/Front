@@ -55,11 +55,11 @@ export default function Signup() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-          <h2 className="mt-8 mb-8 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">
-            회원가입
-          </h2>
+        <h2 className="mt-8 mb-8 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900">
+          회원가입
+        </h2>
         <form onSubmit={handleSubmit} className="w-full max-w-xl mx-auto">
-          <div className="flex items-center justify-center flex-col" method="POST">
+          <div className="flex items-center justify-center flex-col">
             <img className="mx-auto w-auto" src={Logo} />
             <p className="font-medium text-xl mb-4">Super 이끌림</p>
           </div>

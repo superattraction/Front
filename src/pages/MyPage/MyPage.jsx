@@ -3,7 +3,6 @@ import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
 import { BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../img/star 1.png";
-import MainPage from "../../components/MainPage";
 
 const navigation = [
   { name: "Home", href: "/" },

@@ -1,35 +1,10 @@
-import Logo from '../img/star 1.png'
+import Logo from "../img/star 1.png";
 
 const navigation = {
-  // solutions: [
-  //   { name: 'Marketing', href: '#' },
-  //   { name: 'Analytics', href: '#' },
-  //   { name: 'Commerce', href: '#' },
-  //   { name: 'Insights', href: '#' },
-  // ],
-  // support: [
-  //   { name: 'Pricing', href: '#' },
-  //   { name: 'Documentation', href: '#' },
-  //   { name: 'Guides', href: '#' },
-  //   { name: 'API Status', href: '#' },
-  // ],
-  // company: [
-  //   { name: 'About', href: '#' },
-  //   { name: 'Blog', href: '#' },
-  //   { name: 'Jobs', href: '#' },
-  //   { name: 'Press', href: '#' },
-  //   { name: 'Partners', href: '#' },
-  // ],
-  // legal: [
-  //   { name: 'Claim', href: '#' },
-  //   { name: 'Privacy', href: '#' },
-  //   { name: 'Terms', href: '#' },
-  // ],
-  
   social: [
     {
-      name: 'GitHub',
-      href: 'https://github.com/superattraction/',
+      name: "GitHub",
+      href: "https://github.com/superattraction/",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -41,25 +16,28 @@ const navigation = {
       ),
     },
   ],
-}
+};
 
 export default function MainFooter() {
   return (
-    <footer className="bg-gray-800 mx-auto rounded-x" aria-labelledby="footer-heading">
+    <footer
+      className="bg-gray-800 mx-auto rounded-x"
+      aria-labelledby="footer-heading"
+    >
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-8 sm:pt-8 lg:px-8 lg:pt-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
-            <img
-              className="h-10"
-              src={Logo}
-              alt="Company name"
-            />
+            <img className="h-10" src={Logo} alt="Company name" />
             <p className="text-md leading-6 text-gray-300">
               Super 이끌림은 세계의 발전을 위해 노력합니다.
             </p>
             <div className="flex space-x-6">
               {navigation.social.map((item) => (
-                <a key={item.name} href={item.href} className="text-gray-500 hover:text-gray-400">
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-gray-500 hover:text-gray-400"
+                >
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
                 </a>
@@ -67,64 +45,15 @@ export default function MainFooter() {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              {/* <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">Solutions</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.solutions.map((item) => (
-                    <li key={item.name}>
-                      <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
-              {/* <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-white">Support</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.support.map((item) => (
-                    <li key={item.name}>
-                      <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
-            </div>
-            <div className="md:grid md:grid-cols-2 md:gap-8">
-              {/* <div>
-                <h3 className="text-sm font-semibold leading-6 text-white">Company</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.company.map((item) => (
-                    <li key={item.name}>
-                      <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
-              {/* <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-white">Legal</h3>
-                <ul role="list" className="mt-6 space-y-4">
-                  {navigation.legal.map((item) => (
-                    <li key={item.name}>
-                      <a href={item.href} className="text-sm leading-6 text-gray-300 hover:text-white">
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
-            </div>
+            <div className="md:grid md:grid-cols-2 md:gap-8"></div>
           </div>
         </div>
         <div className="mt-16 border-t border-white/10 pt-8 sm:mt-10 lg:mt-12">
-          <p className="text-sm leading-5 text-gray-400">&copy; 2024 Super 이끌림, Inc. All rights reserved.</p>
+          <p className="text-sm leading-5 text-gray-400">
+            &copy; 2024 Super 이끌림, Inc. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
