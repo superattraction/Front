@@ -1,17 +1,23 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 
 import Logo from "../img/star 1.png";
 
 const navigation = [
-  { name: "직무능력계좌", href: "/Account" },
+  { name: "직무능력계좌", href: "/mypage/Account" },
   { name: "Features", href: "#" },
   { name: "Marketplace", href: "#" },
   { name: "마이페이지", href: "/MyPage" },
 ];
+
 const MainPage = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Define the state variables
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false); // State to manage chat window
+
+  const handleChatButtonClick = () => {
+    setChatOpen(!chatOpen);
+  };
 
   return (
     <div className="bg-white">
@@ -180,6 +186,28 @@ const MainPage = () => {
           />
         </div>
       </div>
+
+      {/* Floating 채팅창 */}
+      <button
+        onClick={handleChatButtonClick}
+        className="fixed bottom-5 left-5 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        <ChatBubbleLeftRightIcon className="h-6 w-6" aria-hidden="true" />
+      </button>
+
+      {/* 채팅 로그기록 */}
+      {chatOpen && (
+        <div className="fixed bottom-20 left-5 bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-xl font-semibold mb-4">국비 나침반 AI 상담</h2>
+          <textarea
+            className="w-full h-32 p-2 border border-gray-300 rounded-md"
+            placeholder="내용을 입력하세요."
+          />
+          <button className="mt-2 w-full bg-blue-500 text-white p-2 rounded-md">
+            전송
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -37,7 +37,7 @@ export default function Signin() {
       .then((response) => {
         console.log("데이터가 성공적으로 전송되었습니다.", response.data);
         // 성공 시 리디렉션
-        navigate('/dashboard');
+        navigate('/mypage');
       })
       .catch((error) => {
         console.log("Error", error);

@@ -49,7 +49,7 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log('Fetched data:', data);
+      console.log('Fetched da8ta:', data);
       setSortedEdus(data);
     } catch (error) {
       console.error('Fetching data failed:', error);
