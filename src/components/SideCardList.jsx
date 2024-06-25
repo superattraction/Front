@@ -94,14 +94,14 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
 
   return (
     <div className="w-full h-full overflow-y-auto p-2 border-gray-300">
-      <div className="flex justify-between mb-4">
-        <button onClick={() => sortByDistance()} className="px-4 py-2 bg-blue-500 text-white rounded">
+      <div className="flex mb-4 justify-center items-center">
+        <button onClick={() => sortByDistance()} className="px-4 py-2 mr-5 bg-violet-400 text-white rounded-full">
           거리순
         </button>
-        <button onClick={() => fetchSortedData('related', part)} className="px-4 py-2 bg-green-500 text-white rounded">
+        <button onClick={() => fetchSortedData('related', part)} className="px-4 py-2 mr-5 bg-green-400 text-white rounded-full">
           관련도순
         </button>
-        <button onClick={() => fetchSortedData('custom', part)} className="px-4 py-2 bg-red-500 text-white rounded">
+        <button onClick={() => fetchSortedData('custom', part)} className="px-4 py-2 mr-5 bg-orange-400 text-white rounded-full">
           맞춤도순
         </button>
       </div>
