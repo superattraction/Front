@@ -40,7 +40,7 @@ const GridList = ({ edus = [], onSelectAddress }) => {
             <div className="flex flex-1 justify-center">
               <a
                 href={`tel:${education.phone}`}
-                className="relative inline-flex items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900 w-full"
+                className="relative inline-flex items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900 w-full z-10"
               >
                 <PhoneIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                 Call
@@ -49,7 +49,7 @@ const GridList = ({ edus = [], onSelectAddress }) => {
             <div className="flex flex-1 justify-center">
               <a
                 href={`mailto:${education.email}`}
-                className="relative inline-flex items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900 w-full"
+                className="relative inline-flex items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900 w-full z-10"
               >
                 <EnvelopeIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                 E-Mail

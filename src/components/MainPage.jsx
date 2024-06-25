@@ -14,9 +14,25 @@ const navigation = [
 const MainPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false); // State to manage chat window
+  const [messages, setMessages] = useState([]); // State to manage chat messages
+  const [input, setInput] = useState(""); // State to manage input value
 
   const handleChatButtonClick = () => {
     setChatOpen(!chatOpen);
+  };
+
+  const handleSendMessage = () => {
+    if (input.trim() !== "") {
+      setMessages([...messages, { text: input, sent: true }]);
+      setInput("");
+      // Simulate a received message for demonstration purposes
+      setTimeout(() => {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { text: "이 메세지는 AI가 생성한 테스트 메세지입니다.", sent: false },
+        ]);
+      }, 1000);
+    }
   };
 
   return (
@@ -190,20 +206,39 @@ const MainPage = () => {
       {/* Floating 채팅창 */}
       <button
         onClick={handleChatButtonClick}
-        className="fixed bottom-5 left-5 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="fixed bottom-5 left-5 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 z-50"
       >
         <ChatBubbleLeftRightIcon className="h-6 w-6" aria-hidden="true" />
       </button>
 
       {/* 채팅 로그기록 */}
       {chatOpen && (
-        <div className="fixed bottom-20 left-5 bg-white p-6 rounded-lg shadow-lg">
+        <div className="fixed bottom-20 left-5 bg-white p-6 rounded-lg shadow-lg w-80 z-50">
           <h2 className="text-xl font-semibold mb-4">국비 나침반 AI 상담</h2>
+          <div className="h-48 overflow-y-auto mb-4">
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`p-2 my-2 rounded-lg ${
+                  message.sent
+                    ? "bg-blue-500 text-white self-end"
+                    : "bg-gray-200 text-black self-start"
+                }`}
+              >
+                {message.text}
+              </div>
+            ))}
+          </div>
           <textarea
-            className="w-full h-32 p-2 border border-gray-300 rounded-md"
+            className="w-full h-20 p-2 border border-gray-300 rounded-md mb-2"
             placeholder="내용을 입력하세요."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
           />
-          <button className="mt-2 w-full bg-blue-500 text-white p-2 rounded-md">
+          <button
+            className="w-full bg-blue-500 text-white p-2 rounded-md"
+            onClick={handleSendMessage}
+          >
             전송
           </button>
         </div>
