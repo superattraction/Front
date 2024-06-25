@@ -59,7 +59,7 @@ export default function Signup() {
           회원가입
         </h2>
         <form onSubmit={handleSubmit} className="w-full max-w-xl mx-auto">
-          <div className="flex items-center justify-center flex-col">
+          <div className="flex flex-col items-center justify-center">
             <img className="mx-auto w-auto" src={Logo} />
             <p className="font-medium text-xl mb-4">Super 이끌림</p>
           </div>
@@ -75,7 +75,7 @@ export default function Signup() {
             name="id"
             value={formData.id}
             onChange={handleChange}
-            className={`mt-2 block w-1/2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
+            className={`mt-2 block w-2/3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
               errors.id ? "ring-red-500" : "ring-gray-300"
             } placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
           />
@@ -88,7 +88,7 @@ export default function Signup() {
               htmlFor="password"
               className="text-lg block font-medium leading-6 text-gray-900"
             >
-              Password
+              비밀번호
             </label>
             <input
               type="password"
@@ -96,7 +96,7 @@ export default function Signup() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className={`mt-2 block w-1/2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
+              className={`mt-2 block w-2/3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
                 errors.password ? "ring-red-500" : "ring-gray-300"
               } placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
             />
@@ -110,7 +110,7 @@ export default function Signup() {
               htmlFor="confirmPassword"
               className="block text-lg font-medium text-gray-900 mt-2"
             >
-              Confirm Password
+              비밀번호 확인
             </label>
             <input
               type="password"
@@ -118,7 +118,7 @@ export default function Signup() {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className={`mt-2 placeholder:block w-1/2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
+              className={`mt-2 placeholder:block w-2/3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
                 errors.confirmPassword ? "ring-red-500" : "ring-gray-300"
               } placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
             />
@@ -133,7 +133,7 @@ export default function Signup() {
               htmlFor="name"
               className="block text-lg font-medium text-gray-900 mt-2"
             >
-              Name
+              성함
             </label>
             <input
               type="text"
@@ -141,7 +141,7 @@ export default function Signup() {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`mt-2 block w-1/3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
+              className={`mt-2 block w-2/3 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
                 errors.name ? "ring-red-500" : "ring-gray-300"
               } placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
             />
@@ -183,7 +183,7 @@ export default function Signup() {
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
-              className={`mt-2 block w-3/5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
+              className={`mt-2 w-3/5 block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ${
                 errors.phoneNumber ? "ring-red-500" : "ring-gray-300"
               } placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
             />
