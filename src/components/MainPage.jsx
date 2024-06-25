@@ -15,23 +15,31 @@ const MainPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [chatOpen, setChatOpen] = useState(false); // State to manage chat window
   const [messages, setMessages] = useState([]); // State to manage chat messages
-  const [input, setInput] = useState(""); // State to manage input value
+  const [input1, setInput1] = useState(""); // State to manage input value
+  const [input2, setInput2] = useState(""); // State to manage input value
 
   const handleChatButtonClick = () => {
     setChatOpen(!chatOpen);
   };
 
-  const handleSendMessage = () => {
-    if (input.trim() !== "") {
-      setMessages([...messages, { text: input, sent: true }]);
-      setInput("");
-      // Simulate a received message for demonstration purposes
-      setTimeout(() => {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { text: "이 메세지는 AI가 생성한 테스트 메세지입니다.", sent: false },
-        ]);
-      }, 1000);
+  const handleSendMessage = async () => {
+    if (input1.trim() === "" || input2.trim() === "") return;
+
+    const combinedMessage = `${input1}에서 ${input2}와 관련된 교육 추천해줘`;
+    const newMessage = { text: combinedMessage, sent: true };
+    setMessages([...messages, newMessage]);
+    setInput1("");
+    setInput2("");
+
+    try {
+      const response = await fetch(`http://10.125.121.212:5000/api/chat/${encodeURIComponent(combinedMessage)}`);
+      const data = await response.json();
+      const receivedMessage = { text: data.reply, sent: false };
+      setMessages(prevMessages => [...prevMessages, receivedMessage]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      const errorMessage = { text: 'Error sending message.', sent: false };
+      setMessages(prevMessages => [...prevMessages, errorMessage]);
     }
   };
 
@@ -39,10 +47,7 @@ const MainPage = () => {
     <div className="bg-white">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-50">
-        <nav
-          className="flex items-center justify-between p-6 lg:px-8"
-          aria-label="Global"
-        >
+        <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -71,22 +76,13 @@ const MainPage = () => {
             ))}
           </div>
           <div className="hidden lg:flex flex-1 justify-end ">
-            <a
-              href="/signup"
-              className="px-5 text-sm font-semibold leading-6 text-white"
-            >
+            <a href="/signup" className="px-5 text-sm font-semibold leading-6 text-white">
               회원가입
             </a>
-            <a
-              href="/signin"
-              className="text-sm font-semibold leading-6 text-white"
-            >
+            <a href="/signin" className="text-sm font-semibold leading-6 text-white">
               Login
             </a>
-            <a
-              href="/AdminSignin"
-              className="px-5 text-sm font-semibold leading-6 text-white"
-            >
+            <a href="/AdminSignin" className="px-5 text-sm font-semibold leading-6 text-white">
               관리자 로그인
             </a>
           </div>
@@ -114,16 +110,10 @@ const MainPage = () => {
               </button>
             </div>
             <div className="py-6 ">
-              <a
-                href="/signup"
-                className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-              >
+              <a href="/signup" className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                 회원가입
               </a>
-              <a
-                href="/signin"
-                className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-              >
+              <a href="/signin" className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                 Login
               </a>
             </div>
@@ -219,7 +209,7 @@ const MainPage = () => {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`p-2 my-2 rounded-lg ${
+                className={`p-2 my-2 rounded-lg  ${
                   message.sent
                     ? "bg-blue-500 text-white self-end"
                     : "bg-gray-200 text-black self-start"
@@ -229,14 +219,26 @@ const MainPage = () => {
               </div>
             ))}
           </div>
+          <div>
           <textarea
-            className="w-full h-20 p-2 border border-gray-300 rounded-md mb-2"
-            placeholder="내용을 입력하세요."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            className="w-20 h-10 p-2 border border-gray-300 rounded-md mb-2 "
+            placeholder="지역"
+            value={input1}
+            onChange={(e) => setInput1(e.target.value)}
           />
+          에서
+          </div>
+          <div>
+          <textarea
+            className="w-20 h-10 mr-3 p-2 border border-gray-300 rounded-md mb-2"
+            placeholder="키워드"
+            value={input2}
+            onChange={(e) => setInput2(e.target.value)}
+          />
+          관련한 국비교육 추천해줘
+          </div>
           <button
-            className="w-full bg-blue-500 text-white p-2 rounded-md"
+            className="w-full mt-5 bg-blue-500 text-white p-2 rounded-md"
             onClick={handleSendMessage}
           >
             전송
