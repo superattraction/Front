@@ -213,7 +213,7 @@ const MainPage = () => {
 
       {/* 채팅 로그기록 */}
       {chatOpen && (
-        <div className="fixed bottom-20 left-5 bg-white p-6 rounded-lg shadow-lg w-80 z-50">
+        <div className="fixed bottom-20 left-5 bg-slate-100 p-6 rounded-lg shadow-lg w-80 z-50">
           <h2 className="text-xl font-semibold mb-4">국비 나침반 AI 상담</h2>
           <div className="h-48 overflow-y-auto mb-4">
             {messages.map((message, index) => (
