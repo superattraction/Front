@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import GridList from './GridList';
+import React, { useEffect, useState } from "react";
+import GridList from "./GridList";
 
 export default function SideCardList({ edus, part, onSelectAddress }) {
   const [sortedEdus, setSortedEdus] = useState([]);
@@ -25,23 +25,23 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
 
   const fetchSortedData = async (sortCriteria, part) => {
     if (!part) {
-      console.error('NCS코드가 존재하지 않습니다.');
+      console.error("NCS코드가 존재하지 않습니다.");
       return;
     }
 
     let url;
     switch (sortCriteria) {
-      case 'related':
+      case "related":
         url = `http://10.125.121.212:8080/ncscodes/six/pssort/${part}`;
         break;
-      case 'custom':
+      case "custom":
         url = `http://10.125.121.212:8080/ncscodes/six/ratingsort/${part}`;
         break;
       default:
         return;
     }
 
-    console.log('Fetching URL:', url);
+    console.log("Fetching URL:", url);
 
     try {
       const response = await fetch(url);
@@ -49,10 +49,10 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log('Fetched da8ta:', data);
+      console.log("Fetched da8ta:", data);
       setSortedEdus(data);
     } catch (error) {
-      console.error('Fetching data failed:', error);
+      console.error("Fetching data failed:", error);
     }
   };
 
@@ -93,19 +93,30 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
   };
 
   return (
-    <div className="w-full h-full overflow-y-auto p-2 border-gray-300">
+    <>
       <div className="flex mb-4 justify-center items-center">
-        <button onClick={() => sortByDistance()} className="px-4 py-2 mr-5 bg-violet-400 text-white rounded-full">
+        <button
+          onClick={() => sortByDistance()}
+          className="px-4 py-2 mr-5 bg-violet-400 text-white rounded-full"
+        >
           거리순
         </button>
-        <button onClick={() => fetchSortedData('related', part)} className="px-4 py-2 mr-5 bg-green-400 text-white rounded-full">
+        <button
+          onClick={() => fetchSortedData("related", part)}
+          className="px-4 py-2 mr-5 bg-green-400 text-white rounded-full"
+        >
           관련도순
         </button>
-        <button onClick={() => fetchSortedData('custom', part)} className="px-4 py-2 mr-5 bg-orange-400 text-white rounded-full">
+        <button
+          onClick={() => fetchSortedData("custom", part)}
+          className="px-4 py-2 mr-5 bg-orange-400 text-white rounded-full"
+        >
           맞춤도순
         </button>
       </div>
-      <GridList edus={sortedEdus} onSelectAddress={onSelectAddress} />
-    </div>
+      <div className="w-auto overflow-y-auto p-2 border-gray-300" >
+        <GridList edus={sortedEdus} onSelectAddress={onSelectAddress} />
+      </div>
+    </>
   );
 }

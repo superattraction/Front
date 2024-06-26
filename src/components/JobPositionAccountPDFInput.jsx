@@ -42,28 +42,18 @@ export default function JobPositionAccount() {
   };
 
   return (
-    <form className="m-10" onSubmit={handleSubmit}>
+    <form className="m-10 bg-slate-50" onSubmit={handleSubmit}>
       <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
-        <div>
-          <h2 className="text-2xl font-semibold leading-7 text-gray-900">
-            직무능력계좌
-          </h2>
-        </div>
         <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
           <div className="col-span-full">
-            <label
-              htmlFor="cover-photo"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              PDF 첨부
-            </label>
-            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+
+            <div className="mt-2 flex justify-center rounded-lg px-6 py-10">
               <div className="text-center">
                 <PhotoIcon
                   className="mx-auto h-12 w-12 text-gray-300"
                   aria-hidden="true"
                 />
-                <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                <div className="flex text-sm leading-6 text-gray-600">
                   <label
                     htmlFor="file-upload"
                     className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"

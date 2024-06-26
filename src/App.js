@@ -6,7 +6,7 @@ import Signup from "./pages/Signup";
 import AdminPage from "./pages/Admin/AdminPage"
 import AdminSignin from "./pages/Admin/AdminSignin"
 import MyPage from "./pages/MyPage/MyPage"
-import Account from "./components/JobPositionAccount"
+import Account from "./pages/JobPositionAccount"
 import WelcomeSignup from "./pages/WelcomeSignup";
 
 function App() {
