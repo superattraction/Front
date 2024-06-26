@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
-
 import Logo from "../img/star 1.png";
 
 const navigation = [
@@ -34,18 +33,46 @@ const MainPage = () => {
     try {
       const response = await fetch(`http://10.125.121.212:5000/api/chat/${encodeURIComponent(combinedMessage)}`);
       const data = await response.json();
-      const receivedMessage = { text: data.reply, sent: false };
+      const formattedResponse = formatResponse(data.reply);
+      const receivedMessage = { text: formattedResponse, sent: false };
       setMessages(prevMessages => [...prevMessages, receivedMessage]);
     } catch (error) {
-      console.error('Error sending message:', error);
-      const errorMessage = { text: 'Error sending message.', sent: false };
+      console.error('에러 메세지:', error);
+      const errorMessage = { text: '잘못된 메세지가 전달되었습니다.', sent: false };
       setMessages(prevMessages => [...prevMessages, errorMessage]);
     }
   };
 
+  const formatResponse = (response) => {
+    const coursePattern = /output:\s(.*?)\s\((.*?)\)\s(.*?)\s(.*?)\s(\d{3}-\d{3}-\d{4})\s(.*?)\s(\d+,\d+\s원)\s(총\d+시간)/g;
+    let formatted = '';
+    let match;
+    let courses = [];
+
+    while ((match = coursePattern.exec(response)) !== null) {
+      courses.push(match);
+      if (courses.length === 5) break;
+    }
+
+    courses.forEach(([_, title, code, address, institution, phone, email, cost, duration], index) => {
+      formatted += `\n교육과정 ${index + 1}\n\n`;
+      formatted += `1. 교육과정명: ${title}\n`;
+      formatted += `2. NCS코드: ${code}\n`;
+      formatted += `3. 위치: ${address}\n`;
+      formatted += `4. 상세주소: ${institution}\n`;
+      formatted += `5. 연락처: ${phone}\n`;
+      formatted += `6. E-mail: ${email}\n`;
+      formatted += `7. 교육비용: ${cost}\n`;
+      formatted += `8. 교육기간: ${duration}\n\n`;
+
+    });
+
+    return formatted || '일치하는 교육과정이 없습니다.';
+  };
+
   return (
     <div className="bg-white">
-      {/* Header */}
+      {/* 헤더 */}
       <header className="absolute inset-x-0 top-0 z-50">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
@@ -144,7 +171,7 @@ const MainPage = () => {
         </Dialog>
       </header>
 
-      {/* Hero section */}
+      {/* 헤더 부분 */}
       <div className="relative isolate overflow-hidden bg-gray-900 pb-16 pt-14 sm:pb-20">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -209,33 +236,35 @@ const MainPage = () => {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`p-2 my-2 rounded-lg  ${
+                className={`p-2 my-2 rounded-lg ${
                   message.sent
                     ? "bg-blue-500 text-white self-end"
                     : "bg-gray-200 text-black self-start"
                 }`}
               >
-                {message.text}
+                {message.text.split('\n').map((line, i) => (
+                  <p key={i}>{line}</p>
+                ))}
               </div>
             ))}
           </div>
           <div>
-          <textarea
-            className="w-20 h-10 p-2 border border-gray-300 rounded-md mb-2 "
-            placeholder="지역"
-            value={input1}
-            onChange={(e) => setInput1(e.target.value)}
-          />
-          에서
+            <textarea
+              className="w-20 h-10 p-2 border border-gray-300 rounded-md mb-2"
+              placeholder="지역"
+              value={input1}
+              onChange={(e) => setInput1(e.target.value)}
+            />
+            에서
           </div>
           <div>
-          <textarea
-            className="w-20 h-10 mr-3 p-2 border border-gray-300 rounded-md mb-2"
-            placeholder="키워드"
-            value={input2}
-            onChange={(e) => setInput2(e.target.value)}
-          />
-          관련한 국비교육 추천해줘
+            <textarea
+              className="w-20 h-10 mr-3 p-2 border border-gray-300 rounded-md mb-2"
+              placeholder="키워드"
+              value={input2}
+              onChange={(e) => setInput2(e.target.value)}
+            />
+            관련한 국비교육 추천해줘
           </div>
           <button
             className="w-full mt-5 bg-blue-500 text-white p-2 rounded-md"
