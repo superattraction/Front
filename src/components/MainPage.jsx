@@ -5,8 +5,8 @@ import Logo from "../img/star 1.png";
 
 const navigation = [
   { name: "직무능력계좌", href: "/mypage/Account" },
-  { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
+  { name: "구현예정기능 1", href: "#" },
+  { name: "구현예정기능 2", href: "#" },
   { name: "마이페이지", href: "/MyPage" },
 ];
 

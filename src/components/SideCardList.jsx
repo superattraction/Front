@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GridList from "./GridList";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import AiIcon from "../pages/img/AiIcon.png";
 
 export default function SideCardList({ edus, part, onSelectAddress }) {
   const [sortedEdus, setSortedEdus] = useState([]);
@@ -44,7 +45,9 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
       });
 
       const sortedEdusWithDistance = await Promise.all(promises);
-      const sortedEdusByDistance = sortedEdusWithDistance.sort((a, b) => a.distance - b.distance);
+      const sortedEdusByDistance = sortedEdusWithDistance.sort(
+        (a, b) => a.distance - b.distance
+      );
       setSortedEdus(sortedEdusByDistance);
     } catch (error) {
       console.error("Error geocoding and sorting:", error);
@@ -57,7 +60,10 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
     const dLon = deg2rad(lon2 - lon1);
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c; // Distance in km
     return distance;
@@ -118,13 +124,15 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
             <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
             현재 위치 기반 거리순
           </button>
+          <img src={AiIcon} className="h-10 w-10" />
+
           <button
             type="button"
             onClick={() => fetchSortedData("related", part)}
             className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
-            AI 수강후기 분석 만족도순
+            수강후기 분석 만족도순
           </button>
           <button
             type="button"
@@ -132,11 +140,11 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
             className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
-            평균 별점도 높은 순
+            평균 별점도순
           </button>
         </div>
       </div>
-      <div className="w-auto overflow-y-auto p-2 border-gray-300">
+      <div className="w-auto p-2 border-gray-300">
         <GridList edus={sortedEdus} onSelectAddress={onSelectAddress} />
       </div>
     </>
