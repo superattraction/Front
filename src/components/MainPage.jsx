@@ -24,7 +24,7 @@ const MainPage = () => {
   const handleSendMessage = async () => {
     if (input1.trim() === "" || input2.trim() === "") return;
 
-    const combinedMessage = `${input1}에서 ${input2}와 관련된 교육 추천해줘`;
+    const combinedMessage = `${input1}에서 ${input2}에 관련된 교육 추천해줘`;
     const newMessage = { text: combinedMessage, sent: true };
     setMessages([...messages, newMessage]);
     setInput1("");
@@ -36,6 +36,7 @@ const MainPage = () => {
       const formattedResponse = formatResponse(data.reply);
       const receivedMessage = { text: formattedResponse, sent: false };
       setMessages(prevMessages => [...prevMessages, receivedMessage]);
+      console.log(data)
     } catch (error) {
       console.error('에러 메세지:', error);
       const errorMessage = { text: '잘못된 메세지가 전달되었습니다.', sent: false };
@@ -64,7 +65,6 @@ const MainPage = () => {
       formatted += `6. E-mail: ${email}\n`;
       formatted += `7. 교육비용: ${cost}\n`;
       formatted += `8. 교육기간: ${duration}\n\n`;
-
     });
 
     return formatted || '일치하는 교육과정이 없습니다.';

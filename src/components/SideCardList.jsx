@@ -108,31 +108,33 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
 
   return (
     <>
-      <div className="flex mb-4 justify-center items-center">
-        <button
-          type="button"
-          onClick={() => sortByDistance()}
-          className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
-          현재 위치 기반 거리순
-        </button>
-        <button
-          type="button"
-          onClick={() => fetchSortedData("related", part)}
-          className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
-          AI 수강후기 분석 만족도순
-        </button>
-        <button
-          type="button"
-          onClick={() => fetchSortedData("custom", part)}
-          className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
-          평균 별점도 높은 순
-        </button>
+      <div className="sticky top-0 bg-white z-10">
+        <div className="flex mb-4 justify-center items-center">
+          <button
+            type="button"
+            onClick={() => sortByDistance()}
+            className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
+            현재 위치 기반 거리순
+          </button>
+          <button
+            type="button"
+            onClick={() => fetchSortedData("related", part)}
+            className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
+            AI 수강후기 분석 만족도순
+          </button>
+          <button
+            type="button"
+            onClick={() => fetchSortedData("custom", part)}
+            className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+            <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
+            평균 별점도 높은 순
+          </button>
+        </div>
       </div>
       <div className="w-auto overflow-y-auto p-2 border-gray-300">
         <GridList edus={sortedEdus} onSelectAddress={onSelectAddress} />
