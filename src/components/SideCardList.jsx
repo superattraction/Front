@@ -29,7 +29,7 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
         const response = await fetch(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
             education.address
-          )}&key=YOUR_GOOGLE_MAPS_API_KEY`
+          )}&key=AIzaSyDIF7B0Cs2CpbW4yegmhRk4BiNYsWxl2wA`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch geocode data");
