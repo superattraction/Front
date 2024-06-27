@@ -1,16 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/20/solid";
 
 const GridList = ({ edus = [], onSelectAddress }) => {
-  const [sortCriteria, setSortCriteria] = useState("related");
-
-  const sortEdus = (criteria) => {
-    setSortCriteria(criteria);
-    if (criteria === "ratingsort") {
-      edus.sort((a, b) => b.starrating - a.starrating);
-    }
-  };
-
   return (
     <ul role="list" className="grid gap-y-3">
       {edus.map((education) => (

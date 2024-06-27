@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import GridList from "./GridList";
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
 export default function SideCardList({ edus, part, onSelectAddress }) {
   const [sortedEdus, setSortedEdus] = useState([]);
@@ -7,11 +8,10 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        setCurrentPosition({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        setCurrentPosition({ lat: latitude, lng: longitude });
+        await geocodeAndSort(latitude, longitude);
       },
       (error) => {
         console.error("Error fetching current position:", error);
@@ -20,8 +20,52 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
   }, []);
 
   useEffect(() => {
-    setSortedEdus(edus); // 처음 로드될 때 edus를 sortedEdus로 설정
+    setSortedEdus(edus); // Initially set edus as sortedEdus
   }, [edus]);
+
+  const geocodeAndSort = async (currentLat, currentLng) => {
+    try {
+      const promises = edus.map(async (education) => {
+        const response = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+            education.address
+          )}&key=YOUR_GOOGLE_MAPS_API_KEY`
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch geocode data");
+        }
+        const data = await response.json();
+        if (data.results && data.results.length > 0) {
+          const { lat, lng } = data.results[0].geometry.location;
+          const distance = calculateDistance(currentLat, currentLng, lat, lng);
+          return { ...education, distance };
+        }
+        return education;
+      });
+
+      const sortedEdusWithDistance = await Promise.all(promises);
+      const sortedEdusByDistance = sortedEdusWithDistance.sort((a, b) => a.distance - b.distance);
+      setSortedEdus(sortedEdusByDistance);
+    } catch (error) {
+      console.error("Error geocoding and sorting:", error);
+    }
+  };
+
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371; // Radius of the earth in km
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in km
+    return distance;
+  };
+
+  const deg2rad = (deg) => {
+    return deg * (Math.PI / 180);
+  };
 
   const fetchSortedData = async (sortCriteria, part) => {
     if (!part) {
@@ -49,7 +93,7 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log("Fetched da8ta:", data);
+      console.log("Fetched data:", data);
       setSortedEdus(data);
     } catch (error) {
       console.error("Fetching data failed:", error);
@@ -57,64 +101,40 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
   };
 
   const sortByDistance = () => {
-    if (!currentPosition) return;
-
-    const haversineDistance = (lat1, lon1, lat2, lon2) => {
-      const toRad = (x) => (x * Math.PI) / 180;
-      const R = 6371; // km
-      const dLat = toRad(lat2 - lat1);
-      const dLon = toRad(lon2 - lon1);
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(toRad(lat1)) *
-          Math.cos(toRad(lat2)) *
-          Math.sin(dLon / 2) *
-          Math.sin(dLon / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      return R * c;
-    };
-
-    const sorted = [...sortedEdus].sort((a, b) => {
-      const distanceA = haversineDistance(
-        currentPosition.lat,
-        currentPosition.lng,
-        a.latitude,
-        a.longitude
-      );
-      const distanceB = haversineDistance(
-        currentPosition.lat,
-        currentPosition.lng,
-        b.latitude,
-        b.longitude
-      );
-      return distanceA - distanceB;
-    });
-    setSortedEdus(sorted);
+    if (currentPosition) {
+      geocodeAndSort(currentPosition.lat, currentPosition.lng);
+    }
   };
 
   return (
     <>
       <div className="flex mb-4 justify-center items-center">
         <button
+          type="button"
           onClick={() => sortByDistance()}
-          className="px-4 py-2 mr-5 bg-violet-400 text-white rounded-full"
+          className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          거리순
+          <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
+          현재 위치 기반 거리순
         </button>
         <button
+          type="button"
           onClick={() => fetchSortedData("related", part)}
-          className="px-4 py-2 mr-5 bg-green-400 text-white rounded-full"
+          className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          관련도순
+          <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
+          AI 수강후기 분석 만족도순
         </button>
         <button
+          type="button"
           onClick={() => fetchSortedData("custom", part)}
-          className="px-4 py-2 mr-5 bg-orange-400 text-white rounded-full"
+          className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          맞춤도순
+          <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
+          평균 별점도 높은 순
         </button>
       </div>
-      <div className="w-auto overflow-y-auto p-2 border-gray-300" >
+      <div className="w-auto overflow-y-auto p-2 border-gray-300">
         <GridList edus={sortedEdus} onSelectAddress={onSelectAddress} />
       </div>
     </>
