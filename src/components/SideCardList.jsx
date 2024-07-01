@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GridList from "./GridList";
 import { CheckCircleIcon } from "@heroicons/react/20/solid";
-import AiIcon from "../pages/img/AiIcon.png";
+// import AiIcon from "../pages/img/AiIcon.png";
 
 export default function SideCardList({ edus, part, onSelectAddress }) {
   const [sortedEdus, setSortedEdus] = useState([]);
@@ -119,17 +119,17 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
           <button
             type="button"
             onClick={() => sortByDistance()}
-            className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
             현재 위치 기반 거리순
           </button>
-          <img src={AiIcon} className="h-10 w-10" />
+          {/* <img src={AiIcon} className="h-10 w-10" /> */}
 
           <button
             type="button"
             onClick={() => fetchSortedData("related", part)}
-            className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
             수강후기 분석 만족도순
@@ -137,7 +137,7 @@ export default function SideCardList({ edus, part, onSelectAddress }) {
           <button
             type="button"
             onClick={() => fetchSortedData("custom", part)}
-            className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="mr-4 inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             <CheckCircleIcon className="-mr-0.5 h-5 w-5" aria-hidden="true" />
             평균 별점도순

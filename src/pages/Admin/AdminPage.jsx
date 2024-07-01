@@ -2,23 +2,30 @@ import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
 import { BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { GoHome } from "react-icons/go";
+import { CiBoxList } from "react-icons/ci";
+import { IoClipboardOutline } from "react-icons/io5";
+import { IoPeopleOutline } from "react-icons/io5";
 import Logo from "../img/star 1.png";
+import MainFooter from "../../components/MainFooter";
 
 const navigation = [
-  { name: "Home", href: "#" },
-  { name: "강좌 리스트", href: "#" },
-  { name: "강좌 분석", href: "#" },
-  { name: "관리자 관리", href: "#" },
+  { name: "Home", href: "#", icon: GoHome },
+  { name: "강좌 리스트", href: "#", icon: CiBoxList },
+  { name: "강좌 분석", href: "#", icon: IoClipboardOutline },
+  { name: "관리자 관리", href: "#", icon: IoPeopleOutline },
 ];
+
 const secondaryNavigation = [
   { name: "국민취업지원제도 참여현황(월)", href: "#", current: true },
   { name: "내일 배움카드 발급현황 추이(월)", href: "#", current: false },
 ];
+
 const stats = [
   {
     name: "국민취업지원제도 참여현황(월)",
-    value: "$405,091.00",
-    change: "+4.75%",
+    value: "001",
+    change: "+002%",
     changeType: "positive",
   },
 ];
@@ -35,9 +42,9 @@ const clients = [
     name: "새로운 강좌 목록",
     imageUrl: "https://tailwindui.com/img/logos/48x48/tuple.svg",
     lastInvoice: {
-      date: "December 13, 2022",
-      dateTime: "2022-12-13",
-      amount: "$2,000.00",
+      date: "2024년 2월 5일",
+      dateTime: "2024-02-05",
+      amount: "0001",
       status: "Overdue",
     },
   },
@@ -46,9 +53,9 @@ const clients = [
     name: "새로운 후기 목록",
     imageUrl: "https://tailwindui.com/img/logos/48x48/savvycal.svg",
     lastInvoice: {
-      date: "January 22, 2023",
-      dateTime: "2023-01-22",
-      amount: "$14,000.00",
+      date: "2024년 2월 5일",
+      dateTime: "2024-02-05",
+      amount: "0002",
       status: "Paid",
     },
   },
@@ -74,11 +81,12 @@ export default function AdminPage() {
               <span className="sr-only">Open main menu</span>
               <Bars3Icon className="h-5 w-5 text-gray-900" aria-hidden="true" />
             </button>
-            <img className="h-12 w-auto" src={Logo} />
+            <img className="h-12 w-auto" src={Logo} alt="Logo" />
           </div>
           <nav className="hidden md:flex md:gap-x-11 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
             {navigation.map((item, itemIdx) => (
-              <a key={itemIdx} href={item.href}>
+              <a key={itemIdx} href={item.href} className="flex items-center">
+                {item.icon && <item.icon className="mr-2 h-5 w-5" />}
                 {item.name}
               </a>
             ))}
@@ -96,7 +104,7 @@ export default function AdminPage() {
               <img
                 className="h-8 w-8 rounded-full bg-gray-800"
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
+                alt="Profile"
               />
             </a>
           </div>
@@ -124,7 +132,7 @@ export default function AdminPage() {
                   <img
                     className="h-8 w-auto"
                     src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt=""
+                    alt="Company Logo"
                   />
                 </a>
               </div>
@@ -134,8 +142,9 @@ export default function AdminPage() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex items-center"
                 >
+                  {item.icon && <item.icon className="mr-2 h-5 w-5" />}
                   {item.name}
                 </a>
               ))}
@@ -148,10 +157,10 @@ export default function AdminPage() {
         <div className="relative isolate overflow-hidden pt-16">
           {/* Secondary navigation */}
           <header className="pb-4 pt-6 sm:pb-6">
-            <div className="pb-10">
+            <div className="pb-10 ml-48 mr-48">
               <label
                 htmlFor="search"
-                className="text-sm flex items-center justify-center font-medium leading-6 text-gray-900 pb-3"
+                className="flex text-sm items-center justify-center font-medium leading-6 text-gray-900 pb-3"
               >
                 감독을 원하는 강좌를 검색하세요.
               </label>
@@ -378,6 +387,7 @@ export default function AdminPage() {
           </div>
         </div>
       </main>
+      <MainFooter/>
     </>
   );
 }
