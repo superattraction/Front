@@ -4,8 +4,7 @@ import { Bars3Icon, EllipsisHorizontalIcon } from "@heroicons/react/20/solid";
 import { BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { GoHome } from "react-icons/go";
 import { CiBoxList } from "react-icons/ci";
-import { IoClipboardOutline } from "react-icons/io5";
-import { IoPeopleOutline } from "react-icons/io5";
+import { IoClipboardOutline, IoPeopleOutline } from "react-icons/io5";
 
 import Logo from "../img/star 1.png";
 import MainFooter from "../../components/MainFooter";
@@ -154,23 +153,23 @@ export default function AdminPage() {
       <main>
         <div className="relative isolate overflow-hidden">
           {/* Secondary navigation */}
-          <header className="pb-4 pt-6 sm:pb-6">
-            <div className="pb-10 ml-48 mr-48">
-              <label
-                htmlFor="search"
-                className="flex text-sm items-center justify-center font-medium leading-6 text-gray-900 pb-3"
-              >
-                감독을 원하는 강좌를 검색하세요.
-              </label>
-              <div className="relative mt-2 flex items-center">
-                <input
-                  type="text"
-                  name="search"
-                  id="search"
-                  className="block w-full rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-                <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-                  <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
+          <header className="pb-4 pt-6">
+            <div className="flex justify-center pb-10">
+              <div className="text-center">
+                <label
+                  htmlFor="search"
+                  className="flex text-sm items-center justify-center font-medium leading-6 text-gray-900 pb-1"
+                >
+                  감독을 원하는 강좌를 검색하세요.
+                </label>
+                <div className="relative mt-2 flex items-center justify-center">
+                  <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    className="block w-96 rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                  <kbd className="inline-flex items-center ml-3 rounded border border-gray-200 px-1 font-sans text-md h-full text-gray-400">
                     검색
                   </kbd>
                 </div>
