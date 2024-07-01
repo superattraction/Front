@@ -14,7 +14,7 @@ const GridList = ({ edus = [], onSelectAddress }) => {
             <div className="flex-1 truncate">
               <div className="flex items-center space-x-3">
                 <button
-                  className="truncate text-sm font-medium text-gray-900"
+                  className="truncate text-lg font-medium text-gray-900"
                   onClick={() => {
                     console.log(`Selected address: ${education.address}`);
                     onSelectAddress(education.address);
@@ -23,16 +23,10 @@ const GridList = ({ edus = [], onSelectAddress }) => {
                   {education.title}
                 </button>
               </div>
-              <p className="mt-1 truncate text-sm text-gray-500">
+              <p className="mt-1 mb-3 truncate text-md text-gray-500">
                 {education.address}
               </p>
-              {education.summaryReview && education.summaryReview.summaryReview && (
-                <p className="mt-1 text-sm text-gray-500">
-                  {education.summaryReview.summaryReview}
-                </p>
-              )}
-              {/* GridSummaryReview 컴포넌트를 여기서 사용 */}
-              <GridSummaryReview education={education} />
+              <GridSummaryReview education={education} className="mt-3" />
             </div>
           </div>
           <div className="flex divide-x divide-gray-200">
