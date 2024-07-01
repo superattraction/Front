@@ -8,21 +8,27 @@ import MyMap from '../components/MapNaverDefault';
 export default function Main() {
   const [edus, setEdus] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const [part, setPart] = useState(''); // NCS code 상태 추가
+  const [part, setPart] = useState('');
 
   useEffect(() => {
-    // 예제 데이터를 로드하는 부분
     const fetchData = async () => {
       try {
         const response = await fetch('/api/v1/initialdata');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const data = await response.json();
-        console.log('Fetched data:', data);
-        setEdus(data);
+
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const data = await response.json();
+          console.log('Fetched data:', data);
+          setEdus(data);
+        } else {
+          throw new Error('Received non-JSON response');
+        }
       } catch (error) {
-        console.error('Fetching data failed:', error);
+        console.error('Fetching data failed:', error.message);
+        // 에러 메시지를 더 구체적으로 표시
       }
     };
 

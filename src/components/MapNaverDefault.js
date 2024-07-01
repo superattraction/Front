@@ -3,56 +3,76 @@ import React, { useEffect, useRef, useState } from "react";
 const MyMap = ({ address }) => {
   const mapElement = useRef(null);
   const markerRef = useRef(null);
-  const { naver } = window;
   const [currentPosition, setCurrentPosition] = useState(null);
 
   useEffect(() => {
-    if (!mapElement.current || !naver) return;
-
-    // 초기 지도 설정
-    const mapOptions = {
-      center: new naver.maps.LatLng(37.5656, 126.9769), // 기본 중심 좌표
-      zoom: 15,
-      zoomControl: true,
+    // 스크립트가 로드되었는지 확인하는 함수
+    const loadNaverMapsScript = () => {
+      return new Promise((resolve, reject) => {
+        if (window.naver && window.naver.maps) {
+          resolve(window.naver);
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NAVER_MAPS_CLIENT_ID}&submodules=geocoder`;
+        script.async = true;
+        script.onload = () => resolve(window.naver);
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
     };
 
-    const map = new naver.maps.Map(mapElement.current, mapOptions);
-    mapElement.current._map = map; // map 객체를 저장
+    loadNaverMapsScript().then((naver) => {
+      if (!mapElement.current || !naver) return;
 
-    // 현재 위치 가져오기
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setCurrentPosition({ lat: latitude, lng: longitude });
+      // 초기 지도 설정
+      const mapOptions = {
+        center: new naver.maps.LatLng(37.5656, 126.9769), // 기본 중심 좌표
+        zoom: 15,
+        zoomControl: true,
+      };
 
-        const location = new naver.maps.LatLng(latitude, longitude);
+      const map = new naver.maps.Map(mapElement.current, mapOptions);
+      mapElement.current._map = map; // map 객체를 저장
 
-        // 지도 중심 좌표와 줌 레벨 설정
-        map.setCenter(location);
-        map.setZoom(15);
+      // 현재 위치 가져오기
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCurrentPosition({ lat: latitude, lng: longitude });
 
-        if (!markerRef.current) {
-          markerRef.current = new naver.maps.Marker({
-            position: location,
-            map,
-          });
-        } else {
-          markerRef.current.setPosition(location);
+          const location = new naver.maps.LatLng(latitude, longitude);
+
+          // 지도 중심 좌표와 줌 레벨 설정
+          map.setCenter(location);
+          map.setZoom(15);
+
+          if (!markerRef.current) {
+            markerRef.current = new naver.maps.Marker({
+              position: location,
+              map,
+            });
+          } else {
+            markerRef.current.setPosition(location);
+          }
+        },
+        (error) => {
+          console.error("Error fetching current position:", error);
         }
-      },
-      (error) => {
-        console.error("Error fetching current position:", error);
-      }
-    );
+      );
+    }).catch(error => {
+      console.error('Naver Maps script load error:', error);
+    });
 
     return () => {
       if (mapElement.current) {
         mapElement.current._map = null; // 컴포넌트 언마운트 시 맵 객체 해제
       }
     };
-  }, [naver]);
+  }, []);
 
   useEffect(() => {
+    const { naver } = window;
     if (!naver || !mapElement.current || !address) return;
 
     const map = mapElement.current._map;
@@ -81,7 +101,7 @@ const MyMap = ({ address }) => {
         console.error(`주소 지오코딩에 실패했습니다: ${address}`);
       }
     });
-  }, [address, naver]);
+  }, [address]);
 
   return (
     <div style={{ width: '100%', height: '80%' }}>
