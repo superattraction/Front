@@ -8,6 +8,7 @@ import { IoClipboardOutline, IoPeopleOutline } from "react-icons/io5";
 
 import Logo from "../img/star 1.png";
 import MainFooter from "../../components/MainFooter";
+import GaugeRange from "../../components/GaugeRange";
 
 const navigation = [
   { name: "Home", href: "/admin", icon: GoHome },
@@ -17,17 +18,18 @@ const navigation = [
 ];
 
 const secondaryNavigation = [
-  { name: "국민취업지원제도 참여현황(월)", href: "#", current: true },
-  { name: "내일 배움카드 발급현황 추이(월)", href: "#", current: false },
+  { name: "강좌 리스트 개요", href: "#", current: true },
+  { name: "강좌 분석 개요", href: "#", current: false },
 ];
 
 const stats = [
   {
-    name: "국민취업지원제도 참여현황(월)",
+    name: "강좌 리스트",
     value: "001",
     change: "+002%",
     changeType: "positive",
   },
+  <GaugeRange />
 ];
 
 const statuses = {
@@ -94,7 +96,7 @@ export default function AdminPage() {
           <div className="flex flex-1 items-center justify-end gap-x-8">
             <button
               type="button"
-              className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+              className="-m-2.5 p-2.5 text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">View notifications</span>
               <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -123,14 +125,14 @@ export default function AdminPage() {
                 <span className="sr-only">Close menu</span>
                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />
               </button>
-              <div className="-ml-0.5">
+              <div className="flex-row -ml-0.5">
                 <a href="#" className="-m-1.5 block p-1.5">
-                  <span className="sr-only">Your Company</span>
                   <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    className="h-10 w-auto"
+                    src={Logo}
                     alt="Company Logo"
                   />
+                  <p>Super 이끌림</p>
                 </a>
               </div>
             </div>
@@ -177,7 +179,7 @@ export default function AdminPage() {
             </div>
             <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-6 px-4 sm:flex-nowrap sm:px-6 lg:px-8">
               <h1 className="text-base font-semibold leading-7 text-gray-900">
-                국비교육 통계 한눈에 보기
+                Overview
               </h1>
               <div className="order-last flex w-full gap-x-8 text-sm font-semibold leading-6 sm:order-none sm:w-auto sm:border-l sm:border-gray-200 sm:pl-6 sm:leading-7">
                 {secondaryNavigation.map((item) => (
