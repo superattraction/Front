@@ -1,5 +1,6 @@
 import React from "react";
 import { EnvelopeIcon, PhoneIcon } from "@heroicons/react/20/solid";
+import GridSummaryReview from "./GridSummaryReview";
 
 const GridList = ({ edus = [], onSelectAddress }) => {
   return (
@@ -25,6 +26,13 @@ const GridList = ({ edus = [], onSelectAddress }) => {
               <p className="mt-1 truncate text-sm text-gray-500">
                 {education.address}
               </p>
+              {education.summaryReview && education.summaryReview.summaryReview && (
+                <p className="mt-1 text-sm text-gray-500">
+                  {education.summaryReview.summaryReview}
+                </p>
+              )}
+              {/* GridSummaryReview 컴포넌트를 여기서 사용 */}
+              <GridSummaryReview education={education} />
             </div>
           </div>
           <div className="flex divide-x divide-gray-200">
