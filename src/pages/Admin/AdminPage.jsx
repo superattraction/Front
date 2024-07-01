@@ -6,11 +6,12 @@ import { GoHome } from "react-icons/go";
 import { CiBoxList } from "react-icons/ci";
 import { IoClipboardOutline } from "react-icons/io5";
 import { IoPeopleOutline } from "react-icons/io5";
+
 import Logo from "../img/star 1.png";
 import MainFooter from "../../components/MainFooter";
 
 const navigation = [
-  { name: "Home", href: "#", icon: GoHome },
+  { name: "Home", href: "/admin", icon: GoHome },
   { name: "강좌 리스트", href: "#", icon: CiBoxList },
   { name: "강좌 분석", href: "#", icon: IoClipboardOutline },
   { name: "관리자 관리", href: "#", icon: IoPeopleOutline },
@@ -70,7 +71,7 @@ export default function AdminPage() {
 
   return (
     <>
-      <header className="absolute inset-x-0 top-0 z-50 flex h-16 border-b border-gray-900/10">
+      <header className="relative inset-x-0 top-0 z-50 flex h-20 border-b border-gray-900/10">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex flex-1 items-center gap-x-6">
             <button
@@ -86,7 +87,7 @@ export default function AdminPage() {
           <nav className="hidden md:flex md:gap-x-11 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
             {navigation.map((item, itemIdx) => (
               <a key={itemIdx} href={item.href} className="flex items-center">
-                {item.icon && <item.icon className="mr-2 h-5 w-5" />}
+                {item.icon && <item.icon className="mr-2 h-8 w-8" />}
                 {item.name}
               </a>
             ))}
@@ -100,12 +101,9 @@ export default function AdminPage() {
               <BellIcon className="h-6 w-6" aria-hidden="true" />
             </button>
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your profile</span>
-              <img
-                className="h-8 w-8 rounded-full bg-gray-800"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt="Profile"
-              />
+              <h2 className="text-center text-sm leading-9 tracking-tight text-gray-800 hover:text-gray-500">
+                Sign Out
+              </h2>
             </a>
           </div>
         </div>
@@ -142,7 +140,7 @@ export default function AdminPage() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex items-center"
+                  className="-mx-3 rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 flex items-center"
                 >
                   {item.icon && <item.icon className="mr-2 h-5 w-5" />}
                   {item.name}
@@ -154,7 +152,7 @@ export default function AdminPage() {
       </header>
 
       <main>
-        <div className="relative isolate overflow-hidden pt-16">
+        <div className="relative isolate overflow-hidden">
           {/* Secondary navigation */}
           <header className="pb-4 pt-6 sm:pb-6">
             <div className="pb-10 ml-48 mr-48">
@@ -387,7 +385,7 @@ export default function AdminPage() {
           </div>
         </div>
       </main>
-      <MainFooter/>
+      <MainFooter />
     </>
   );
 }
