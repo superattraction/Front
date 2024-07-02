@@ -1,12 +1,17 @@
-import React from 'react';
-import Stack from '@mui/material/Stack';
-import { Gauge } from '@mui/x-charts/Gauge';
+import * as React from 'react';
+import { LineChart } from '@mui/x-charts/LineChart';
 
 export default function GaugeRange() {
   return (
-    <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 1, md: 3 }}>
-      <Gauge width={100} height={100} value={50} />
-      <Gauge width={100} height={100} value={50} valueMin={10} valueMax={60} />
-    </Stack>
+    <LineChart
+      xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
+      series={[
+        {
+          data: [2, 5.5, 2, 8.5, 1.5, 5],
+        },
+      ]}
+      width={600}
+      height={300}
+    />
   );
 }

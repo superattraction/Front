@@ -80,7 +80,8 @@ export default function AdminSignin() {
             </form>
 
             <div>
-              <div className="relative mt-10">
+
+              {/* <div className="relative mt-10">
                 <div className="absolute inset-0 flex items-center" aria-hidden="true">
                   <div className="w-full border-t border-gray-200" />
                 </div>
@@ -88,9 +89,9 @@ export default function AdminSignin() {
                   <span className="bg-white px-6 text-gray-900">
                   </span>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="mt-6 grid">
+              {/* <div className="mt-6 grid">
                 <a
                   href="#"
                   className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
@@ -115,7 +116,8 @@ export default function AdminSignin() {
                   </svg>
                   <span className="text-sm font-semibold leading-6">Google</span>
                 </a>
-              </div>
+              </div> */}
+              
             </div>
           </div>
         </div>

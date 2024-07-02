@@ -9,6 +9,7 @@ import { IoClipboardOutline, IoPeopleOutline } from "react-icons/io5";
 import Logo from "../img/star 1.png";
 import MainFooter from "../../components/MainFooter";
 import GaugeRange from "../../components/GaugeRange";
+import AnalysisOverview from "../../components/AnalysisOverview";
 
 const navigation = [
   { name: "Home", href: "/admin", icon: GoHome },
@@ -17,20 +18,22 @@ const navigation = [
   { name: "관리자 관리", href: "#", icon: IoPeopleOutline },
 ];
 
-const secondaryNavigation = [
-  { name: "강좌 리스트 개요", href: "#", current: true },
-  { name: "강좌 분석 개요", href: "#", current: false },
-];
-
-const stats = [
-  {
-    name: "강좌 리스트",
-    value: "001",
-    change: "+002%",
-    changeType: "positive",
-  },
-  <GaugeRange />
-];
+const initialStats = {
+  GaugeRange: [
+    {
+      name: "강좌 리스트",
+      value: "001",
+      changeType: "positive",
+    },
+  ],
+  AnalysisOverview: [
+    {
+      name: "강좌 분석",
+      value: "002",
+      changeType: "positive",
+    },
+  ],
+};
 
 const statuses = {
   Paid: "text-green-700 bg-green-50 ring-green-600/20",
@@ -69,6 +72,24 @@ function classNames(...classes) {
 
 export default function AdminPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentComponent, setCurrentComponent] = useState("GaugeRange");
+  const [stats, setStats] = useState(initialStats[currentComponent]);
+  const [secondaryNavigation, setSecondaryNavigation] = useState([
+    { name: "강좌 리스트 개요", href: "#", current: true, component: "GaugeRange" },
+    { name: "강좌 분석 개요", href: "#", current: false, component: "AnalysisOverview" },
+  ]);
+
+  const handleSecondaryNavClick = (component, index) => {
+    setCurrentComponent(component);
+    setStats(initialStats[component]);
+
+    setSecondaryNavigation((prevNav) => 
+      prevNav.map((item, idx) => ({
+        ...item,
+        current: idx === index,
+      }))
+    );
+  };
 
   return (
     <>
@@ -127,11 +148,7 @@ export default function AdminPage() {
               </button>
               <div className="flex-row -ml-0.5">
                 <a href="#" className="-m-1.5 block p-1.5">
-                  <img
-                    className="h-10 w-auto"
-                    src={Logo}
-                    alt="Company Logo"
-                  />
+                  <img className="h-10 w-auto" src={Logo} alt="Company Logo" />
                   <p>Super 이끌림</p>
                 </a>
               </div>
@@ -154,7 +171,6 @@ export default function AdminPage() {
 
       <main>
         <div className="relative isolate overflow-hidden">
-          {/* Secondary navigation */}
           <header className="pb-4 pt-6">
             <div className="flex justify-center pb-10">
               <div className="text-center">
@@ -182,13 +198,14 @@ export default function AdminPage() {
                 Overview
               </h1>
               <div className="order-last flex w-full gap-x-8 text-sm font-semibold leading-6 sm:order-none sm:w-auto sm:border-l sm:border-gray-200 sm:pl-6 sm:leading-7">
-                {secondaryNavigation.map((item) => (
+                {secondaryNavigation.map((item, itemIdx) => (
                   <a
                     key={item.name}
                     href={item.href}
-                    className={
+                    className={classNames(
                       item.current ? "text-indigo-600" : "text-gray-700"
-                    }
+                    )}
+                    onClick={() => handleSecondaryNavClick(item.component, itemIdx)}
                   >
                     {item.name}
                   </a>
@@ -197,7 +214,6 @@ export default function AdminPage() {
             </div>
           </header>
 
-          {/* Stats */}
           <div className="border-b border-b-gray-900/10 lg:border-t lg:border-t-gray-900/5">
             <dl className="mx-auto max-w-7xl">
               {stats.map((stat, statIdx) => (
@@ -222,12 +238,14 @@ export default function AdminPage() {
                         : "text-gray-700",
                       "text-xs font-medium"
                     )}
-                  >
-                    {stat.change}
-                  </dd>
+                  ></dd>
                   <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
                     {stat.value}
                   </dd>
+                  {currentComponent === "GaugeRange" && <GaugeRange />}
+                  {currentComponent === "AnalysisOverview" && (
+                    <AnalysisOverview />
+                  )}
                 </div>
               ))}
             </dl>
@@ -248,7 +266,6 @@ export default function AdminPage() {
         </div>
 
         <div className="space-y-16 py-16 xl:space-y-20">
-          {/* Recent activity table */}
           <div>
             <div className="mt-6 overflow-hidden border-t border-gray-100">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -267,7 +284,6 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Recent client list*/}
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
               <div className="flex items-center justify-between">
